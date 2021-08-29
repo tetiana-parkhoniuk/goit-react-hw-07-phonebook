@@ -13,4 +13,23 @@ const deleteContact = createAction('contacts/Delete');
 
 const changeFilter = createAction('contacts/changeFilter');
 
-export default { addContact, deleteContact, changeFilter };
+//pending
+const fetchContactsRequest = createAction('contacts/fetchContactsRequest');
+
+//fulfilled
+const fetchContactsSuccess = createAction('contacts/fetchContactsSuccess');
+
+//rejected
+const fetchContactsError = createAction('contacts/fetchContactsError');
+
+
+
+
+export default {
+    addContact,
+    deleteContact,
+    changeFilter,
+    fetchContactsRequest,
+    fetchContactsSuccess,
+    fetchContactsError
+};
