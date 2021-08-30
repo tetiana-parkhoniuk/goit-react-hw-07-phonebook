@@ -4,7 +4,7 @@
   "description": "local server",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch db.json --port 4444",
+    "server": "json-server --watch db.json --port 4444",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

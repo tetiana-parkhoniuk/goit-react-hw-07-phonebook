@@ -3,19 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
 import styles from 'components/ContactForm/ContactForm.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import contactsActions from 'redux/contacts/contacts-actions';
-import { getContacts } from 'redux/contacts/contacts-selectors';
+import { contactsSelectors, contactsOperations } from '../../redux/contacts';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(contactsSelectors.getFilteredContacts);
   const dispatch = useDispatch();
 
   const nameInputId = uuidv4();
   const numberInputId = uuidv4();
-
-  const onAdd = (name, number) => dispatch(contactsActions.addContact(name, number));
 
   const handleNameChange = event => {
     const { value } = event.currentTarget;
@@ -40,7 +37,7 @@ export default function ContactForm() {
       toast.error('Please enter at least some data');
     }
     else {
-      onAdd(name, number);
+      dispatch(contactsOperations.createContact({ name, number }));
     }
     
     resetForm();

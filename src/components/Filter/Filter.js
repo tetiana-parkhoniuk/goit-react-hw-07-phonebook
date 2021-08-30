@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import styles from 'components/Filter/Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import contactsActions from 'redux/contacts/contacts-actions';
-import { getFilter } from '../../redux/contacts/contacts-selectors';
+import { contactsSelectors } from '../../redux/contacts';
+import { changeFilter } from '../../redux/contacts/contacts-slice';
 
 
 export default function Filter() {
   const id = uuidv4();
-  const value = useSelector(getFilter);
+  const value = useSelector(contactsSelectors.getFilter);
   const dispatch = useDispatch();
 
-  const onChange = (event) => dispatch(contactsActions.changeFilter(event.target.value));
+  const onChange = (event) => dispatch(changeFilter(event.target.value));
 
   return (
     <div className={styles.filterContainer}>

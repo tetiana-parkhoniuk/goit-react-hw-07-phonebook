@@ -2,19 +2,15 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactsListItem from 'components/ContactsListItem/';
 import styles from 'components/ContactsList/ContactsList.module.css';
-import contactsActions from 'redux/contacts/contacts-actions';
-import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
-import * as contactsOperations from '../../redux/contacts/contacts-operations';
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 
 export default function ContactsList() {
-  const contacts = useSelector(getFilteredContacts);
+  const contacts = useSelector(contactsSelectors.getFilteredContacts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
-
-  const onDeleteContact = (id) => dispatch(contactsActions.deleteContact(id))
 
   return (
     <ul className={styles.contactList}>
@@ -24,7 +20,7 @@ export default function ContactsList() {
           id={contact.id}
           name={contact.name}
           number={contact.number}
-          onDeleteContact={onDeleteContact}
+          onDeleteContact={() => dispatch(contactsOperations.deleteContact(contact.id))}
         />
       ))}
     </ul>
